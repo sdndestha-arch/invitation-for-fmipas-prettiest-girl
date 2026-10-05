@@ -100,31 +100,6 @@ body {
   line-height: 1.6;
 }
 
-.music-button {
-  display: block;
-  margin: 0 auto 0.7rem;
-  padding: 0.65rem 1rem;
-  border: 1px solid rgba(163, 50, 104, 0.25);
-  border-radius: 999px;
-  background: #f5d4e2;
-  color: #69264a;
-  cursor: pointer;
-  font: inherit;
-  transition: transform 180ms ease, background-color 180ms ease;
-}
-
-.music-button:hover {
-  transform: translateY(-2px);
-  background: #f0bfd3;
-}
-
-.music-status {
-  min-height: 1.5em;
-  margin: 0 0 0.8rem !important;
-  color: #49a96e;
-  font-size: 0.9rem !important;
-}
-
 .surprise-card a {
   display: inline-block;
   padding: 0.8rem 1.2rem;
