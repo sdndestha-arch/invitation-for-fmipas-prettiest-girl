@@ -227,6 +227,10 @@ if (noBtn) {
 
 if (catSurpriseButton) {
   catSurpriseButton.addEventListener("click", () => {
+    if (backgroundMusic instanceof HTMLAudioElement && !backgroundMusic.paused) {
+      sessionStorage.setItem("invitation-music-time", String(backgroundMusic.currentTime));
+    }
+
     window.location.href = "surprise.html";
   });
 }

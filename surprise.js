@@ -24,3 +24,62 @@ if (decor) {
     decor.appendChild(particle);
   }
 }
+
+const music = document.getElementById("surprise-music");
+let musicStarting = false;
+
+async function startSurpriseMusic() {
+  if (!(music instanceof HTMLAudioElement) || !music.paused || musicStarting) {
+    return;
+  }
+
+  musicStarting = true;
+  music.volume = 0;
+
+  try {
+    if (music.readyState < HTMLMediaElement.HAVE_METADATA) {
+      await new Promise((resolve) => {
+        music.addEventListener("loadedmetadata", resolve, { once: true });
+      });
+    }
+
+    const savedTime = Number.parseFloat(sessionStorage.getItem("invitation-music-time"));
+    sessionStorage.removeItem("invitation-music-time");
+    const startTime = Number.isFinite(savedTime) ? savedTime : 134;
+    music.currentTime = Math.min(Math.max(startTime, 0), Math.max(music.duration - 1, 0));
+
+    if (music.seeking) {
+      await new Promise((resolve) => {
+        music.addEventListener("seeked", resolve, { once: true });
+      });
+    }
+
+    await music.play();
+    window.removeEventListener("pointerdown", startSurpriseMusic);
+    window.removeEventListener("keydown", startSurpriseMusic);
+
+    const fadeStartedAt = performance.now();
+    const fadeDuration = 2000;
+    const fadeIn = (now) => {
+      if (music.paused) {
+        return;
+      }
+
+      music.volume = Math.min((now - fadeStartedAt) / fadeDuration, 1);
+      if (music.volume < 1) {
+        requestAnimationFrame(fadeIn);
+      }
+    };
+
+    requestAnimationFrame(fadeIn);
+  } catch (error) {
+    musicStarting = false;
+    if (!(error instanceof DOMException && error.name === "NotAllowedError")) {
+      console.error("Surprise page music could not be played:", error);
+    }
+  }
+}
+
+window.addEventListener("pointerdown", startSurpriseMusic);
+window.addEventListener("keydown", startSurpriseMusic);
+startSurpriseMusic();
