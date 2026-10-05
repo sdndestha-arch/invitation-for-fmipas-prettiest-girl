@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Valentine Letter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Envelope Screen -->
+    <div id="envelope-container">
+      <div id="envelope-hearts" aria-hidden="true"></div>
+      <img src="envelope.png" alt="Envelope" id="envelope" />
+      <p>♡ Letter for You ♡</p>
+    </div>
+
+    <!-- Letter Screen -->
+    <div id="letter-container">
+      <div class="letter-window">
+        <h1 id="letter-title">Would you like to experience all your firsts with me?</h1>
+
+        <div class="photo-grid" aria-label="Foto kenangan">
+          <figure class="photo-card">
+            <img src="photos/foto%20safa.jpeg" alt="Foto kenangan Safa 1" loading="lazy" />
+            <figcaption>perfect</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="photos/safa%202.jpeg" alt="Foto kenangan Safa 2" loading="lazy" />
+            <figcaption>cantik</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="photos/foto%20safa%203.jpeg" alt="Foto kenangan Safa 3" loading="lazy" />
+            <figcaption>lucu</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="photos/foto%20safa%204.jpeg" alt="Foto kenangan Safa 4" loading="lazy" />
+            <figcaption>lovely</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="photos/foto%20safa%205.jpeg" alt="Foto kenangan Safa 5" loading="lazy" />
+            <figcaption>imut</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="photos/foto%20safa%206.jpeg" alt="Foto kenangan Safa 6" loading="lazy" />
+            <figcaption>gorgeous</figcaption>
+          </figure>
+        </div>
+
+        <div class="cat-stage">
+          <button
+            type="button"
+            class="cat-surprise-button"
+            id="cat-surprise-button"
+            aria-label="Buka kejutan dari si kucing"
+            disabled
+          >
+            <img src="cat_heart.gif" class="cat" id="letter-cat" alt="Kucing lucu" />
+          </button>
+          <span class="cat-prompt" id="cat-prompt" role="status">
+            Psst... pencet aku dong! Aku punya kejutan 😼
+          </span>
+        </div>
+
+        <div class="buttons" id="letter-buttons">
+          <img src="yes.png" class="btn yes-btn" alt="Yes" />
+
+          <div class="no-wrapper">
+            <img src="no.png" class="btn no-btn" alt="No" />
+          </div>
+        </div>
+
+        <p id="final-text" class="final-text" style="display: none">
+          <strong>Trip and Explore Date:</strong> Trip to everywhere and forever.
+        </p>
+      </div>
+    </div>
+    <div id="no-alert" role="status" aria-live="polite"></div>
+    <audio id="background-music" src="music/you-me.mp3" preload="auto" loop></audio>
+    <script src="script.js"></script>
+  </body>
+</html>
