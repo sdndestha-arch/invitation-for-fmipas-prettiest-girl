@@ -26,6 +26,8 @@ if (decor) {
 }
 
 const music = document.getElementById("surprise-music");
+const musicButton = document.getElementById("music-button");
+const musicStatus = document.getElementById("music-status");
 let musicStarting = false;
 
 async function startSurpriseMusic() {
@@ -35,8 +37,12 @@ async function startSurpriseMusic() {
 
   musicStarting = true;
   music.volume = 0;
+  music.muted = true;
+  const playRequest = music.play();
 
   try {
+    await playRequest;
+
     if (music.readyState < HTMLMediaElement.HAVE_METADATA) {
       await new Promise((resolve) => {
         music.addEventListener("loadedmetadata", resolve, { once: true });
@@ -54,7 +60,16 @@ async function startSurpriseMusic() {
       });
     }
 
-    await music.play();
+    music.muted = false;
+    musicStarting = false;
+    if (musicButton) {
+      musicButton.textContent = "♫ Music is playing";
+      musicButton.disabled = true;
+    }
+    if (musicStatus) {
+      musicStatus.textContent = "♪ lagu lanjut dari tempat terakhir";
+    }
+
     window.removeEventListener("pointerdown", startSurpriseMusic);
     window.removeEventListener("keydown", startSurpriseMusic);
 
@@ -73,13 +88,19 @@ async function startSurpriseMusic() {
 
     requestAnimationFrame(fadeIn);
   } catch (error) {
+    music.pause();
+    music.muted = false;
     musicStarting = false;
     if (!(error instanceof DOMException && error.name === "NotAllowedError")) {
       console.error("Surprise page music could not be played:", error);
+    }
+    if (musicStatus) {
+      musicStatus.textContent = "Ketuk tombol musik untuk memutarnya ♫";
     }
   }
 }
 
 window.addEventListener("pointerdown", startSurpriseMusic);
 window.addEventListener("keydown", startSurpriseMusic);
+musicButton?.addEventListener("click", startSurpriseMusic);
 startSurpriseMusic();
